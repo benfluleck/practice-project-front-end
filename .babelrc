@@ -6,7 +6,10 @@
         "browsers" : "last 2 versions"
       },
       "loose": true,
-      "modules": false      
+      "modules": false
     }]
+  ],
+  "plugins": [
+    "babel-plugin-transform-class-properties"
   ]
 }
