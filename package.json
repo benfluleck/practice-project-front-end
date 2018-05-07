@@ -3,6 +3,7 @@
     "api": "node ratingsAPI.js",
     "lint": "eslint **/*.{js,jsx} --quiet",
     "test": "jest -u",
+    "test:coverage": "jest --coverage",
     "webpack": "webpack -d",
     "webpack:server": "webpack-dev-server",
     "webpack:watch": "webpack --watch"

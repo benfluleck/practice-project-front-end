@@ -1,21 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import LandingPage from './LandingPage';
-import Search from './Search';
-import NotFoundPage from './NotFoundPage';
+import App from './App';
 
-const App = () => (
-  <BrowserRouter>
-    <div className="app">
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/search" component={Search} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </div>
-  </BrowserRouter>
-);
+const renderApp = () => {
+  render(<App />, document.getElementById('app'));
+};
 
-render(<App />, document.getElementById('app'));
+renderApp();
+
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    renderApp();
+  });
+}
