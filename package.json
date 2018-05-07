@@ -2,6 +2,7 @@
   "scripts": {
     "api": "node ratingsAPI.js",
     "lint": "eslint **/*.{js,jsx} --quiet",
+    "test": "jest -u",
     "webpack": "webpack -d",
     "webpack:server": "webpack-dev-server",
     "webpack:watch": "webpack --watch"
@@ -15,6 +16,7 @@
     "cors": "2.8.3",
     "express": "4.15.3",
     "global": "^4.3.2",
+    "jest-cli": "^22.4.3",
     "lodash": "4.17.4",
     "preact": "8.1.0",
     "preact-compat": "3.16.0",
@@ -56,7 +58,7 @@
     "eslint-plugin-prettier": "2.1.1",
     "eslint-plugin-react": "^7.7.0",
     "flow-bin": "0.47.0",
-    "jest": "20.0.4",
+    "jest": "^20.0.4",
     "jest-serializer-enzyme": "1.0.0",
     "moxios": "0.4.0",
     "nodemon": "1.11.0",
@@ -64,6 +66,11 @@
     "react-hot-loader": "3.0.0-beta.6",
     "react-test-renderer": "15.5.4",
     "webpack-dev-server": "^2.11.2"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "jest-serializer-enzyme"
+    ]
   },
   "name": "practice-project",
   "version": "3.0.0",

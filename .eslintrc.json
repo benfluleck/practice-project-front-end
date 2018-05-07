@@ -11,9 +11,8 @@
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true,
-    "jquery": true,
-    "browser": true
+    "browser": true,
+    "jest": true
   },
   "rules": {
     "one-var": 0,
