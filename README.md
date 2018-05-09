@@ -1,6 +1,13 @@
 # A Complete Intro to React
 
-Welcome to a complete intro to React! The site actual workshop material for this repo can be found [here][gh-page]. On the master branch you will find the completed project. On the start branch you will find the barebones boilerplater of the project designed to help you get started.
+Welcome to a complete intro to React! The starter project is originally from Brian Holt from his frontend masters course for React found [here][gh-page]. I have pulled the bare bones project and followed along while modifying some of the features as I have coded along. The original project was done with *React Router v3*
+
+<br />
+<br />
+
+<img width="1440" alt="imbd catalog" src="/screenshot/screenshot.png">
+<br />
+
 
 ## Contributing
 

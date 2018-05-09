@@ -5,7 +5,7 @@ import preload from '../../data.json';
 import Search from '../Search';
 import ShowCard from '../ShowCard';
 
-const searchComponent = shallow(<Search />);
+const searchComponent = shallow(<Search shows={preload.shows} />);
 
 describe('<Search />', () => {
   it('matches the snapshot produced on render', () => {
@@ -20,7 +20,7 @@ describe('<Search />', () => {
   criteria`, () => {
     const searchWord = "black";
 
-    const component = shallow(<Search />);
+    const component = shallow(<Search shows={preload.shows} />);
     component.find('input').simulate('change'
       , { target: { value: searchWord } });
 

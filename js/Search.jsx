@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { string, shape, arrayOf } from 'prop-types';
 
 import ShowCard from './ShowCard';
+import Header from './Header';
 
 /**
  * @class Search
@@ -38,14 +39,10 @@ export class Search extends Component {
   render() {
     return (
       <div className="search">
-        <header>
-          <h1>s-video</h1>
-          <input
-            onChange={this.handleInputChange}
-            type="text"
-            value={this.state.searchTerm}
-            placeholder="Search.." />
-        </header>
+        <Header
+        showSearch
+        searchTerm={this.state.searchTerm}
+        handleInputChange={this.handleInputChange} />
         <div>
           {this.props.shows
             .filter(show => `${show.title} ${show.description}`.toUpperCase()
@@ -57,13 +54,23 @@ export class Search extends Component {
   }
 }
 
+
 let show = shape({
-  title: string.isRequired,
-  description: string.isRequired,
+  title: string,
+  description: string,
+  string: string,
+  year: string,
+  imdbID: string,
+  trailer: string,
+  poster: string,
 });
 
+Search.defaultProps = {
+  shows: []
+};
+
 Search.propTypes = {
-  shows: arrayOf(show).isRequired,
+  shows: arrayOf(show),
 };
 
 export default Search;
