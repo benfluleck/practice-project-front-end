@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { string, shape, arrayOf } from 'prop-types';
+import { connect } from 'react-redux';
 
 import ShowCard from './ShowCard';
 import Header from './Header';
@@ -9,51 +10,21 @@ import Header from './Header';
  *
  * @extends {Component}
  */
-export class Search extends Component {
-  state = {
-    searchTerm: ''
-  };
-
-  /**
-    * @description- handles change in Input
-    *
-    * @param {event}
-    * @returns {void}
-    * @memberOf Search
-    */
-  handleInputChange = (event) => {
-    this.setState({
-      searchTerm: event.target.value
-    });
-  }
-
-  /**
-  * @description renders Search
-  *
-  * @method render
-  *
-  * @returns {Component} - Search
-  *
-  * @memberOf Search
-  */
-  render() {
-    return (
-      <div className="search">
-        <Header
-        showSearch
-        searchTerm={this.state.searchTerm}
-        handleInputChange={this.handleInputChange} />
-        <div>
-          {this.props.shows
+const Search = (props) =>
+  (<div className="search">
+    <Header showSearch />
+    <div>
+      {props.shows
             .filter(show => `${show.title} ${show.description}`.toUpperCase()
-            .indexOf(this.state.searchTerm.toUpperCase()) >= 0)
+            .indexOf(props.searchTerm.toUpperCase()) >= 0)
             .map(show => <ShowCard key={show.imdbID} {...show} />)}
-        </div>
-      </div>
+    </div>
+  </div>
     );
-  }
-}
 
+const mapStateToProps = (state) => ({
+  searchTerm: state.searchTerm
+});
 
 let show = shape({
   title: string,
@@ -66,11 +37,14 @@ let show = shape({
 });
 
 Search.defaultProps = {
-  shows: []
+  shows: [],
+  searchTerm: '',
+
 };
 
 Search.propTypes = {
   shows: arrayOf(show),
+  searchTerm: string,
 };
 
-export default Search;
+export default connect(mapStateToProps)(Search);

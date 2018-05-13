@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { string, bool, func } from 'prop-types';
+import { connect } from "react-redux";
+
+import { setSearchTermAction } from "./actions/actionCreator";
 
 const Header = (props) => {
   let utilSpace = props.showSearch ?
@@ -24,14 +27,24 @@ const Header = (props) => {
 
 Header.defaultProps = {
   showSearch: false,
-  handleInputChange: function noop() {},
   searchTerm: '',
+  handleInputChange: () => {},
 };
 
 Header.propTypes = {
   showSearch: bool,
-  handleInputChange: func,
   searchTerm: string,
+  handleInputChange: func,
 };
 
-export default Header;
+const mapStateToProps = state => ({
+  searchTerm: state.searchTerm
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleInputChange(event) {
+    dispatch(setSearchTermAction(event.target.value));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
