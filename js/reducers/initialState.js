@@ -1,5 +1,6 @@
 const initialState = {
-  searchTerm: 'something light'
+  searchTerm: '',
+  apiData: {},
 };
 
 export default initialState;

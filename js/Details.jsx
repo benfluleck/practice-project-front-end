@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { string, shape } from 'prop-types';
-import axios from 'axios';
+import { string, shape, func } from 'prop-types';
+// import axios from 'axios';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import Loader from './Loader';
+import { getAPIDetails } from './actions/actionCreator';
+
 
 /**
  * @class Details
@@ -15,22 +18,18 @@ class Details extends Component {
   /**
    * @description - handles axios requests for data
    *
-   * @param {}
+   * @param {void}
    *
    * @returns {void}
    *
    * @memberOf Details
    */
   componentDidMount() {
-    axios.get(`http://localhost:3000/${this.props.show.imdbID}`)
-      .then(({ data: { rating } }) => {
-        this.setState({ apiData: { rating } });
-      });
+    if (!this.props.rating) {
+      this.props.getAPIData();
+    }
   }
 
-  state = {
-    apiData: { rating: '' }
-  };
 
   /**
   * @description renders Details
@@ -44,8 +43,8 @@ class Details extends Component {
   render() {
     const { title, description, year, poster, trailer } = this.props.show;
     let ratingComponent;
-    ratingComponent = this.state.apiData.rating ?
-      <h3>{this.state.apiData.rating}</h3> :
+    ratingComponent = this.props.rating ?
+      <h3>{this.props.rating}</h3> :
       <Loader />;
     return (
       <div className="details">
@@ -60,7 +59,8 @@ class Details extends Component {
           <p>{description}</p>
         </section>
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${trailer}?rel=0&amp;controls=0&amp;showinfo=0`}
+          src={`https://www.youtube-nocookie.com/embed/${trailer}
+          ?rel=0&amp;controls=0&amp;showinfo=0`}
           frameBorder="0"
           width="1280" height="640"
           title={`Trailer for ${title}`} />
@@ -71,10 +71,12 @@ class Details extends Component {
 
 
 Details.defaultProps = {
-  show: {}
+  show: {},
 };
 
 Details.propTypes = {
+  rating: string.isRequired,
+  getAPIData: func.isRequired,
   show: shape({
     title: string,
     description: string,
@@ -86,4 +88,18 @@ Details.propTypes = {
   }),
 };
 
-export default Details;
+const mapStateToProps = (state, ownProps) => {
+  const apiData = state.apiData[ownProps.show.imdbID] ?
+    state.apiData[ownProps.show.imdbID] : {};
+  return {
+    rating: apiData.rating
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getAPIData() {
+    dispatch(getAPIDetails(ownProps.show.imdbID));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);
